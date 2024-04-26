@@ -1,0 +1,59 @@
+def variant = project.hasProperty("yandexMapkit.variant") ? project.property("yandexMapkit.variant") : "lite"
+def initClass = "com.unact.yandexmapkit." + variant + ".Init" + variant.capitalize() + ".class"
+
+group 'com.unact.yandexmapkit'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.1.1'
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    buildFeatures {
+        buildConfig = true
+    }
+
+    if (project.android.hasProperty("namespace")) {
+        namespace 'com.unact.yandexmapkit'
+    }
+
+    sourceSets {
+        main {
+            java {
+                include("com/unact/yandexmapkit/lite/*")
+
+                if (variant == "lite") {
+                    exclude("com/unact/yandexmapkit/full/*")
+                }
+            }
+        }
+    }
+
+    compileSdkVersion 33
+
+    defaultConfig {
+        minSdkVersion 21
+
+        buildConfigField "Class", "YANDEX_MAPKIT_INIT_CLASS", initClass
+    }
+}
+
+dependencies {
+    implementation 'com.yandex.android:maps.mobile:4.5.1-' + variant
+}
