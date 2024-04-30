@@ -72,8 +72,8 @@ class _ScreenOnMap extends State<ScreenOnMap> {
                             child: InkWell(
                                 onTap: () {
                                   widget.model.appState.dimVisible = true;
-                                  widget.parentState();
                                   widget.model.appState.copyTempAddress();
+                                  widget.parentState();
                                   widget.model.requests.initCoin((){
                                     widget.model.appState.appState = AppState.asIdle;
                                     widget.model.appState.dimVisible = false;

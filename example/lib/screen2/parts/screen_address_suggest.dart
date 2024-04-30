@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:wagon_client/model/address_model.dart';
 import 'package:wagon_client/model/tr.dart';
 import 'package:wagon_client/screen2/model/app_state.dart';
@@ -27,8 +24,10 @@ class _ScreenAddressSuggest extends State<ScreenAddressSuggest> {
   Widget build(BuildContext context) {
     if (widget.model.appState.showFullAddressWidget) {
       if (widget.model.appState.focusFrom) {
+        focusTo.unfocus();
         focusFrom.requestFocus();
       } else {
+        focusFrom.unfocus();
         focusTo.requestFocus();
       }
     } else {
@@ -126,13 +125,28 @@ class _ScreenAddressSuggest extends State<ScreenAddressSuggest> {
                         focusNode: focusFrom,
                         decoration: InputDecoration(
                             hintText: tr(trFrom),
+                            border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.black38)),
+                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.black38)),
                             hintStyle: const TextStyle(color: Colors.black12)),
                         controller: widget.model.appState.addressFrom,
-                        onTap: () {},
+                        onTap: () {
+                          widget.model.appState.focusFrom = true;
+                          focusTo.unfocus();
+                          focusFrom.requestFocus();
+                          setState(() {
+
+                          });
+                        },
                         onChanged: (s) {
+                          setState(() {
+
+                          });
                           widget.model.suggest.suggest(s);
                         },
                       )),
+                      Visibility(
+                        visible: focusFrom.hasFocus && widget.model.appState.addressFrom.text.length > 0,
+                          child:
                       InkWell(
                         onTap: () {
                           widget.model.appState.addressFrom.clear();
@@ -140,15 +154,19 @@ class _ScreenAddressSuggest extends State<ScreenAddressSuggest> {
                             widget.model.appState.structAddressFrom = null;
                           }
                           focusFrom.requestFocus();
+                          setState(() {
+
+                          });
                         },
-                        child: Image.asset(
-                          'images/close.png',
-                          height: 20,
-                        ),
-                      ),
-                      InkWell(
+                        child: Icon(Icons.close_rounded)
+                      )),
+                      Visibility(visible: focusFrom.hasFocus, child: const SizedBox(width: 15, height: 20, child: VerticalDivider(color: Colors.black38))),
+                      Visibility(
+                        visible: focusFrom.hasFocus,
+                        child: InkWell(
                         onTap: () {
-                          widget.model.appState.appState = AppState.asSearchOnMapFrom;
+                          widget.model.appState.appState =
+                              AppState.asSearchOnMapFrom;
                           widget.parentState();
                         },
                         child: Container(
@@ -156,7 +174,7 @@ class _ScreenAddressSuggest extends State<ScreenAddressSuggest> {
                           child: Image.asset(
                             'images/mappin.png',
                             height: 20,
-                          ),
+                          )),
                         ),
                       )
                     ],
@@ -176,15 +194,29 @@ class _ScreenAddressSuggest extends State<ScreenAddressSuggest> {
                           child: TextFormField(
                         focusNode: focusTo,
                         decoration: InputDecoration(
+                            border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.black38)),
+                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.black38)),
                             hintText: tr(trTo),
                             hintStyle: const TextStyle(color: Colors.black12)),
                         controller: widget.model.appState.addressTo,
-                        onTap: () {},
+                        onTap: () {
+                          widget.model.appState.focusFrom = false;
+                          focusFrom.unfocus();
+                          focusTo.requestFocus();
+                          setState(() {
+
+                          });
+                        },
                         onChanged: (s) {
                           widget.model.suggest.suggest(s);
+                          setState(() {
+
+                          });
                         },
                       )),
-                      InkWell(
+                      Visibility(
+                        visible: focusTo.hasFocus && widget.model.appState.addressTo.text.length > 0,
+                        child: InkWell(
                         onTap: () {
                           widget.model.appState.addressTo.clear();
                           if (widget
@@ -192,16 +224,20 @@ class _ScreenAddressSuggest extends State<ScreenAddressSuggest> {
                             widget.model.appState.structAddressTod.removeLast();
                           }
                           focusTo.requestFocus();
+                          setState(() {
+
+                          });
                         },
-                        child: Image.asset(
-                          'images/close.png',
-                          height: 20,
-                        ),
-                      ),
-                      InkWell(
+                        child: Icon(Icons.close_rounded)
+                      )),
+                     Visibility(visible: !focusFrom.hasFocus, child: const SizedBox(width: 15, height: 20, child: VerticalDivider(color: Colors.black38))),
+                      Visibility(
+                        visible: focusTo.hasFocus,
+                        child: InkWell(
                         onTap: () {
                           focusTo.requestFocus();
-                          widget.model.appState.appState = AppState.asSearchOnMapTo;
+                          widget.model.appState.appState =
+                              AppState.asSearchOnMapTo;
                           widget.parentState();
                         },
                         child: Container(
@@ -211,7 +247,7 @@ class _ScreenAddressSuggest extends State<ScreenAddressSuggest> {
                             height: 20,
                           ),
                         ),
-                      )
+                      ))
                     ],
                   ),
 
@@ -229,21 +265,47 @@ class _ScreenAddressSuggest extends State<ScreenAddressSuggest> {
                                 child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            const SizedBox(height: 5),
                             for (final i in snapshot.data) ...[
                               Container(
-                                  height: 40,
+                                  padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                                   decoration: const BoxDecoration(),
                                   child: Row(
                                     children: [
                                       const SizedBox(width: 5),
                                       if (i.tags.contains('shop'))
-                                        Icon(Icons.shop_2_outlined)
+                                        Image.asset(
+                                          'images/sugg/supermarket.png',
+                                          height: 26,
+                                        )
                                       else if (i.tags.contains('street'))
-                                        Icon(Icons.streetview)
-                                      else if (i.tags.contains('restaurant') || i.tags.contains('cafe'))
-                                        Icon(Icons.restaurant)
-                                        else
-                                        Icon(Icons.other_houses_outlined),
+                                        Image.asset(
+                                          'images/sugg/streethouse.png',
+                                          height: 26,
+                                        )
+                                      else if (i.tags.contains('restaurant') ||
+                                          i.tags.contains('cafe'))
+                                        Image.asset(
+                                          'images/sugg/cafe.png',
+                                          height: 26,
+                                        )
+                                      else if (i.tags.contains('bus') ||
+                                          i.tags.contains('bus stop'))
+                                        Image.asset(
+                                          'images/sugg/busstation.png',
+                                          height: 26,
+                                        )
+                                      else if (i.tags.contains('hospital') ||
+                                          i.tags.contains('medicine'))
+                                        Image.asset(
+                                          'images/sugg/hospital.png',
+                                          height: 26,
+                                        )
+                                      else
+                                        Image.asset(
+                                          'images/sugg/streethouse.png',
+                                          height: 26,
+                                        ),
                                       const SizedBox(width: 5),
                                       Expanded(
                                           child: InkWell(
@@ -253,12 +315,19 @@ class _ScreenAddressSuggest extends State<ScreenAddressSuggest> {
                                                       .model
                                                       .appState
                                                       .addressFrom
-                                                      .text = i.type == SuggestItemType.toponym ? i.displayText : '${i.title} ${i.subtitle}';
+                                                      .text = i.type ==
+                                                          SuggestItemType
+                                                              .toponym
+                                                      ? i.displayText
+                                                      : '${i.title} ${i.subtitle}';
                                                   widget.model.appState
                                                           .structAddressFrom =
                                                       AddressStruct(
-                                                          address:
-                                                          i.type == SuggestItemType.toponym ? i.displayText : '${i.title} ${i.subtitle}',
+                                                          address: i.type ==
+                                                                  SuggestItemType
+                                                                      .toponym
+                                                              ? i.displayText
+                                                              : '${i.title} ${i.subtitle}',
                                                           title: i.title,
                                                           point: i.center);
                                                 } else {
@@ -266,7 +335,11 @@ class _ScreenAddressSuggest extends State<ScreenAddressSuggest> {
                                                       .model
                                                       .appState
                                                       .addressTo
-                                                      .text = i.type == SuggestItemType.toponym ? i.displayText : '${i.title} ${i.subtitle}';
+                                                      .text = i.type ==
+                                                          SuggestItemType
+                                                              .toponym
+                                                      ? i.displayText
+                                                      : '${i.title} ${i.subtitle}';
                                                   if (widget
                                                       .model
                                                       .appState
@@ -275,8 +348,11 @@ class _ScreenAddressSuggest extends State<ScreenAddressSuggest> {
                                                     widget.model.appState
                                                         .structAddressTod
                                                         .add(AddressStruct(
-                                                            address:
-                                                            i.type == SuggestItemType.toponym ? i.displayText : '${i.title} ${i.subtitle}',
+                                                            address: i.type ==
+                                                                    SuggestItemType
+                                                                        .toponym
+                                                                ? i.displayText
+                                                                : '${i.title} ${i.subtitle}',
                                                             title: i.title,
                                                             point: i.center));
                                                   } else {
@@ -292,7 +368,10 @@ class _ScreenAddressSuggest extends State<ScreenAddressSuggest> {
                                                 widget.model.suggestStream
                                                     .add(null);
                                                 print(i.tags);
-                                                if (i.tags.contains('house') || i.type == SuggestItemType.business ) {
+                                                if (i.tags.contains('house') ||
+                                                    i.type ==
+                                                        SuggestItemType
+                                                            .business) {
                                                   widget.model.appState
                                                           .showFullAddressWidget =
                                                       false;
@@ -332,12 +411,19 @@ class _ScreenAddressSuggest extends State<ScreenAddressSuggest> {
                                                   }
                                                 }
                                               },
-                                              child: Text(i.type == SuggestItemType.toponym ? i.displayText : '${i.title} ${i.subtitle}',
-                                                  maxLines: 1,
-                                                  overflow:
-                                                      TextOverflow.ellipsis))),
+                                              child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(i.title,
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow
+                                                            .ellipsis),
+                                                    Text(i.subtitle, style: const TextStyle(color: Colors.black38)),
+                                                    Divider(),
+                                                  ]))),
                                     ],
-                                  ))
+                                  )),
                             ]
                           ],
                         )));
