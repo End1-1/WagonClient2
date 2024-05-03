@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wagon_client/model/tr.dart';
 
-import 'consts.dart';
+import '../../consts.dart';
 
 class Information extends StatelessWidget {
 

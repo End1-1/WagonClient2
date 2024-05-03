@@ -6,7 +6,7 @@ import 'package:wagon_client/model/tr.dart';
 import 'package:wagon_client/web/web_parent.dart';
 import 'package:wagon_client/web/web_settings.dart';
 
-import 'consts.dart';
+import '../../consts.dart';
 
 class SettingsWindow extends StatefulWidget {
   static GlobalKey scaffoldKey = GlobalKey();

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:wagon_client/model/tr.dart';
 import 'package:wagon_client/web/web_history.dart';
 
-import 'consts.dart';
-import "dlg.dart";
-import 'history_list.dart';
-import 'history_order.dart';
+import '../../consts.dart';
+import "../../dlg.dart";
+import '../../history_list.dart';
+import '../../history_order.dart';
 
 class HistoryAll extends StatefulWidget {
   @override

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:wagon_client/consts.dart';
 import 'package:wagon_client/screen2/bloc/screen_menu_bloc.dart';
 import 'package:wagon_client/screen2/model/ac_type.dart';
@@ -105,9 +106,9 @@ class _Screen2State extends State<Screen2>
         });
       }
     });
+
+    checkPermissions();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -297,5 +298,22 @@ class _Screen2State extends State<Screen2>
             );
           },
         ));
+  }
+
+  Future<void> checkPermissions() async {
+    bool _serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    LocationPermission permission = await Geolocator.checkPermission();
+
+    if (!_serviceEnabled) {
+      return;
+    }
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission != LocationPermission.whileInUse &&
+          permission != LocationPermission.always) {
+        return;
+      }
+    }
   }
 }

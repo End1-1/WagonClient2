@@ -57,11 +57,11 @@ class Requests {
         };
 
         model.initCoinStream.add(null);
+        await model.mapController.paintRoute();
+
         if (f != null) {
           f();
         }
-
-        await model.mapController.paintRoute();
 
       }, (c, s) {
         Dlg.show(s);

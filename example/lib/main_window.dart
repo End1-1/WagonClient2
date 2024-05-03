@@ -16,8 +16,8 @@ import 'package:wagon_client/car.dart';
 import 'package:wagon_client/consts.dart';
 import 'package:wagon_client/dlg.dart';
 import 'package:wagon_client/freezed/chat_message.dart';
-import 'package:wagon_client/history_all.dart';
-import 'package:wagon_client/information.dart';
+import 'package:wagon_client/screen2/screen/history_all.dart';
+import 'package:wagon_client/screen2/screen/information.dart';
 import 'package:wagon_client/order_cancel_options.dart';
 import 'package:wagon_client/resources/resource_car_types.dart';
 import 'package:wagon_client/screen2/model/model.dart';
@@ -30,7 +30,7 @@ import 'package:wagon_client/screens/options_screen.dart';
 import 'package:wagon_client/screens/payment/screen.dart';
 import 'package:wagon_client/screens/single_address/screen.dart';
 import 'package:wagon_client/screens/support/screen.dart';
-import 'package:wagon_client/settings.dart';
+import 'package:wagon_client/screen2/screen/settings.dart';
 import 'package:wagon_client/web/web_assessment.dart';
 import 'package:wagon_client/web/web_broadcast_auth.dart';
 import 'package:wagon_client/web/web_cancelaccept.dart';
@@ -45,9 +45,8 @@ import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 import 'model/address_model.dart';
 import 'model/tr.dart';
-import 'myaddresses.dart';
+import 'screen2/screen/myaddresses.dart';
 import 'screens/app/model.dart';
-import 'screens/mainpage/mainpage.dart';
 
 class WMainWindow extends StatefulWidget {
   @override

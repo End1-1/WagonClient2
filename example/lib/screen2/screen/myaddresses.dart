@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:wagon_client/model/tr.dart';
 import 'package:wagon_client/screens/myaddresses_select/myaddress_select.dart';
 
-import 'consts.dart';
-import 'myaddressdetails.dart';
-import 'web/web_myaddresses.dart';
+import '../../consts.dart';
+import '../../myaddressdetails.dart';
+import '../../web/web_myaddresses.dart';
 
 class MyAddresses extends StatefulWidget {
   @override

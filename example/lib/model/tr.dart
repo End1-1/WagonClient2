@@ -92,6 +92,8 @@ const trStapVarord = 89;
 const trVulkanacum = 90;
 const trForOrderChooseService = 91;
 const trMinOneSymbole = 92;
+const trProfile = 93;
+const trMakeDriver = 94;
 
 const Map<int, String> ru = {
   trMissingInternet: "Отсутствует интернет подключение",
@@ -102,8 +104,8 @@ const Map<int, String> ru = {
   trOptions: "Опции",
   trDriverComment: 'Коментарий для водителя',
   trPlan:  'Запланировать поездку',
-  trORDER: "ЗАКАЗАТЬ",
-  trBOOK: "ЗАБРОНИРОВАТЬ",
+  trORDER: "Заказать",
+  trBOOK: "Забронировать",
   trSEARCHCAR: "ПОИСК АВТОМОБИЛЯ",
   trFindingCar: "Найдено несколько машин. Сейчас мы выбираем наилучший вариант для вас!",
   trCancel: 'Отмена',
@@ -115,18 +117,18 @@ const Map<int, String> ru = {
   trDramSymbol: '֏',
   trFINISH: "ЗАВЕРШИТЬ",
   trDialogWithDriver: "ДИАЛОГ С ВОДИТЕЛЕМ",
-  trORDERSHISTORY:"ИСТОРИЯ ЗАКАЗОВ",
-  trSETTINGS: "НАСТРОЙКИ",
+  trORDERSHISTORY:"История заказов",
+  trSETTINGS: "Настройки",
   trINFO: "ИНФОРМАЦИЯ",
-  trSUPPORT: "ПОДДЕРЖКА",
-  trEXIT: "ВЫХОД",
+  trSUPPORT: "Служба поддержки",
+  trEXIT: "Выход",
   trYourPreorderAccept: "Ваш предварительный заказ принят.",
   trDriverInPlaceCancelFee: "Водитель на месте. Отмена стоит:",
   trCommentForDriver:'Коментарий для водителя',
   trSave: 'Сохранить',
   trNoData: "Нет данных",
   trWaitForCoordinate: "подождите, пока определим ваши координаты или укажите адрес",
-  trNEXT: "ДАЛЕЕ",
+  trNEXT: "Далее",
   trGettingAddress: "Определяем адрес...",
   trReady: "Готово",
   trYes: "Да",
@@ -184,7 +186,9 @@ const Map<int, String> ru = {
    trStapVarord: "Трезвый водитель",
    trVulkanacum: "Вулканизация",
   trForOrderChooseService: 'Для заказа выбирите тип услуги',
-  trMinOneSymbole: 'м'
+  trMinOneSymbole: 'м',
+  trProfile: 'Профиль',
+  trMakeDriver: 'Стать водителем'
 };
 
 String tr(int key) {
